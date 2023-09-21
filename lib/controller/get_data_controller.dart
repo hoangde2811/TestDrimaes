@@ -13,7 +13,7 @@ class GetDataController{
   final dio = Dio();
   CheckInternet checkInternet = new CheckInternet();
   DatabaseHelper databaseHelper =DatabaseHelper.instance;
-  Future<dynamic> GetDanhSachThongTin({BuildContext? context,int? page}) async {
+  Future<dynamic> GetDanhSachThongTin({BuildContext? context,int? page,int? show_snackbar}) async {
     bool check_internet= await checkInternet.getConnectInternet();
     if (check_internet==true){
       Response response = await dio.get(
@@ -25,24 +25,26 @@ class GetDataController{
       print("rrr${response.data}");
       return response.data;
     }else{
-    var snackBar=  SnackBar(content: RichText(
-        text: TextSpan(children: [
-          TextSpanDungChung(
-              text: "Xin vui lòng kiểm tra lại Internet",
-              fontWeight: FontWeightUtils.fontweight_bold,color_text: ColorUtils.white)
-              .getTextSpan(),
 
-        ]),
-      ),backgroundColor: ColorUtils.blue,);
-    ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+     if(show_snackbar==0){
+       var snackBar=  SnackBar(content: RichText(
+         text: TextSpan(children: [
+           TextSpanDungChung(
+               text: "Xin vui lòng kiểm tra lại Internet",
+               fontWeight: FontWeightUtils.fontweight_bold,color_text: ColorUtils.white)
+               .getTextSpan(),
+
+         ]),
+       ),backgroundColor: ColorUtils.blue,);
+       ScaffoldMessenger.of(context!).showSnackBar(snackBar);
+       show_snackbar=1;
+     }
+
     Map respone_local={};
-    print ("page_khong_wifi:$page");
+
     List<Map<String, dynamic>> list_data_thongtin= await databaseHelper.querySQL("page",  page ?? 1);
 
     if (list_data_thongtin.length>0){
-      list_data_thongtin.forEach((element) {
-        print("khong wifi:"+element.toString());
-      });
       respone_local["page"]=list_data_thongtin[0]["page"];
       respone_local["total_pages"]=list_data_thongtin[0]["total_page"];
       respone_local["data"]=List.of(list_data_thongtin);

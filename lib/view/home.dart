@@ -43,6 +43,7 @@ class Homescreen extends State<Home>  {
   WriteFile writeFile= new WriteFile();
   int get_page=1;
   String path_local="";
+  int check_show_snackbar=0;
   Future<Null> reload() async {
     Navigator.pushReplacement(
         context,
@@ -59,7 +60,7 @@ class Homescreen extends State<Home>  {
     super.initState();
     getPath();
     futureCheckConnect = checkInternet.getConnectInternet();
-    duLieuThongTin=getDataController.GetDanhSachThongTin(context: context,page:get_page );
+    duLieuThongTin=getDataController.GetDanhSachThongTin(context: context,page:get_page,show_snackbar: check_show_snackbar );
     context.read<ChangeDataToggle>().changeDataListWidgetToggle(_dataToggle);
     context.read<ChangeDataToggle>().changeDataListSelectedToggle(_selectedToggle);
 
@@ -173,7 +174,7 @@ class Homescreen extends State<Home>  {
                                           backgroundColor:
                                           Colors
                                               .blue,
-                                          child: value_check_internet==true? Image.network(list_data_thongtin[position]["avatar"].toString(),fit: BoxFit.cover,):Image.file(File("$path_local/${list_data_thongtin[position]["avatar"].toString().split("/")[5].toString()}")),
+                                          child: value_check_internet==true? Image.network(list_data_thongtin[position]["avatar"].toString(),fit: BoxFit.cover):Image.file(File("$path_local/${list_data_thongtin[position]["avatar"].toString().split("/")[5].toString()}")),
                                         ),title: Column(children: [
                                           RichText(
                                             text: TextSpan(children: [
@@ -211,7 +212,7 @@ class Homescreen extends State<Home>  {
                                       ),child: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,crossAxisAlignment: CrossAxisAlignment.center,
                                         children: <Widget>[
-                                          Image.network(list_data_thongtin[index]["avatar"].toString(),fit: BoxFit.cover,width: 50,height: 50,),
+                                          Image.network(list_data_thongtin[index]["avatar"].toString(),fit: BoxFit.cover,width: SizeLayout.sizePercentWidth!*25,height: SizeLayout.sizePercentWidth!*25,),
                                           RichText(
                                             text: TextSpan(children: [
                                               TextSpanDungChung(
@@ -238,7 +239,7 @@ class Homescreen extends State<Home>  {
                                 Visibility( visible: get_page<load_page?true:false,child: Container(child:
                                 ElevatedButtonIconDungChung(onPressed_: () async{
                                   get_page+=1;
-                                  var get_data= await getDataController.GetDanhSachThongTin(context: context,page:get_page );
+                                  var get_data= await getDataController.GetDanhSachThongTin(context: context,page:get_page,show_snackbar: check_show_snackbar );
                                   List<dynamic> list=get_data["data"];
                                   value_check_internet=get_data["check_internet"];
                                   if (list.length>0){
