@@ -7,10 +7,14 @@ import 'package:provider/provider.dart';
 
 import 'model/change_data_toggle.dart';
 import 'utils/ColorUtils/colors_utils.dart';
+import 'utils/build_config.dart';
+import 'utils/injection/injection.dart';
 
-void main() {
+void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+  BuildConfig.init2(flavor: Flavor.DEVELOPMENT);
+  await Injection.inject();
   runApp( MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => ChangeDataToggle()),

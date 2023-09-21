@@ -1,23 +1,35 @@
 import 'package:dio/dio.dart';
 import 'package:drimaes/utils/ColorUtils/colors_utils.dart';
 import 'package:drimaes/utils/Path.dart';
+import 'package:drimaes/utils/build_config.dart';
+import 'package:drimaes/utils/injection/injection.dart';
 import 'package:flutter/material.dart';
 
 import '../model/thongtin.dart';
 import '../utils/CheckConnect/connect_internet.dart';
 import '../utils/FontWeight/fontweight.dart';
+import '../utils/module/api_module.dart';
 import '../view/view_dungchung/textspan_dungchung.dart';
 import 'db/database_helper.dart';
 
-class GetDataController{
-  final dio = Dio();
+
+
+class GetDataController {
+
+  Dio dio=Injection.getIt<Dio>();
+
   CheckInternet checkInternet = new CheckInternet();
   DatabaseHelper databaseHelper =DatabaseHelper.instance;
+
   Future<dynamic> GetDanhSachThongTin({BuildContext? context,int? page,int? show_snackbar}) async {
+
+
     bool check_internet= await checkInternet.getConnectInternet();
+
     if (check_internet==true){
+
       Response response = await dio.get(
-        PathURl.domain,
+        "",
         queryParameters: {'page': page ?? 1,},
       );
 
