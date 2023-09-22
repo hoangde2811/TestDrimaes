@@ -13,7 +13,7 @@ import 'utils/injection/injection.dart';
 void main() async{
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-  BuildConfig.init2(flavor: Flavor.DEVELOPMENT);
+  BuildConfig.init(flavor: Flavor.DEVELOPMENT);
   await Injection.inject();
   runApp( MultiProvider(
     providers: [

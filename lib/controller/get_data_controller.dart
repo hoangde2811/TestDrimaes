@@ -63,6 +63,7 @@ class GetDataController {
       respone_local["check_internet"]=check_internet;
 
     }else{
+
       respone_local["page"]=0;
       respone_local["total_pages"]=0;
       respone_local["data"]=[];

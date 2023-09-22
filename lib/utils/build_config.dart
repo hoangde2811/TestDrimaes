@@ -38,30 +38,30 @@ class BuildConfig {
 
   static BuildConfig? _instance;
 
-  static init({flavor}) {
-    if (_instance == null) {
-      print('╔══════════════════════════════════════════════════════════════╗');
-      print('                    Build Flavor: $flavor                       ');
-      print('╚══════════════════════════════════════════════════════════════╝');
-      switch (flavor) {
-        case 'development':
-          _instance = BuildConfig._development();
-          break;
-        case 'staging':
-          _instance = BuildConfig._staging();
-          break;
-        case 'preprod':
-          _instance = BuildConfig._preprod();
-          break;
-        default:
-          _instance = BuildConfig._release();
-          break;
-      }
-    }
+  // static init({flavor}) {
+  //   if (_instance == null) {
+  //     print('╔══════════════════════════════════════════════════════════════╗');
+  //     print('                    Build Flavor: $flavor                       ');
+  //     print('╚══════════════════════════════════════════════════════════════╝');
+  //     switch (flavor) {
+  //       case 'development':
+  //         _instance = BuildConfig._development();
+  //         break;
+  //       case 'staging':
+  //         _instance = BuildConfig._staging();
+  //         break;
+  //       case 'preprod':
+  //         _instance = BuildConfig._preprod();
+  //         break;
+  //       default:
+  //         _instance = BuildConfig._release();
+  //         break;
+  //     }
+  //   }
+  //
+  // }
 
-  }
-
-  static init2({Flavor flavor = Flavor.STAGING}) {
+  static init({Flavor flavor = Flavor.STAGING}) {
     if (_instance == null) {
       print('╔══════════════════════════════════════════════════════════════╗');
       print('                    Build Flavor: $flavor                       ');

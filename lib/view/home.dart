@@ -161,9 +161,9 @@ class Homescreen extends State<Home>  {
                                     itemBuilder: (context,position){
                                   // writeFile.downloadFile(path: path_local,tenfile:list_data_thongtin[position]["email"].toString() )
 
-                                      // if (value_check_internet==true){
-                                      //   writeFile.downloadFile(path: path_local,tenfile: list_data_thongtin[position]["avatar"].toString().split("/")[5].toString(),url:list_data_thongtin[position]["avatar"].toString() );
-                                      // }
+                                      if (value_check_internet==true){
+                                        writeFile.downloadFile(path: path_local,tenfile: list_data_thongtin[position]["avatar"].toString().split("/")[5].toString(),url:list_data_thongtin[position]["avatar"].toString() );
+                                      }
 
                                       return Card(color: ColorUtils.white,
                                         elevation:
@@ -259,6 +259,8 @@ class Homescreen extends State<Home>  {
 
                                     print("${list_data_thongtin.length}");
                                     context.read<ChangeDataThongTin>().changeDataListWidgetThongTin(list_data_thongtin);
+                                  }else{
+                                    get_page=get_page-1;
                                   }
 
                                 },label_widget:RichText(
